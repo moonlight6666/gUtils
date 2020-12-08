@@ -19,7 +19,7 @@
 //	logs.SetLogFuncCallDepth(3)
 //}
 
-package utils
+package gUtils
 
 import (
 	"fmt"

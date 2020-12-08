@@ -1,4 +1,4 @@
-package utils
+package gUtils
 
 import (
 	"fmt"
