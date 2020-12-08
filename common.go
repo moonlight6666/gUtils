@@ -4,7 +4,7 @@ import (
 	"crypto/md5"
 	"encoding/json"
 	"fmt"
-	"github.com/astaxie/beego/logs"
+	//"github.com/astaxie/beego/logs"
 	"io/ioutil"
 	"math"
 	"net/http"
@@ -48,7 +48,7 @@ func PrintStack(err interface{}) {
 
 func CheckError(err error, msg ... string) {
 	if err != nil {
-		logs.GetBeeLogger().Error("%s %v", msg, err)
+		fmt.Printf("%s %v", msg, err)
 	}
 }
 
