@@ -132,6 +132,13 @@ func Md5(s []byte ) string{
 	return fmt.Sprintf("%x", md5.Sum(s))
 }
 
+//将字符串加密成 md5
+func Md5String(str string) string {
+	data := []byte(str)
+	return Md5(data) //将[]byte转成16进制
+}
+
+
 // 保留N位小数点
 func Decimal(f float64, n int) float64 {
 	n10 := math.Pow10(n)

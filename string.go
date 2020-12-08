@@ -1,20 +1,12 @@
 package gUtils
 
 import (
-	"crypto/md5"
-	"fmt"
 	"math/rand"
 	"strconv"
 	"strings"
 	"time"
 )
 
-//将字符串加密成 md5
-func String2md5(str string) string {
-	data := []byte(str)
-	has := md5.Sum(data)
-	return fmt.Sprintf("%x", has) //将[]byte转成16进制
-}
 
 //RandomString 在数字、大写字母、小写字母范围内生成num位的随机字符串
 func RandomString(length int) string {
