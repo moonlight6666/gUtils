@@ -29,7 +29,7 @@ func Cmd(commandName string, params []string) (string, error) {
 
 func CmdAndChangeDir(dir string, commandName string, params []string) (string, error) {
 	cmd := exec.Command(commandName, params...)
-	//fmt.Println("CmdAndChangeDir", dir, cmd.Args)
+	fmt.Println("CmdAndChangeDir", dir, cmd.Args)
 	var out bytes.Buffer
 	cmd.Stdout = &out
 	cmd.Stderr = cmd.Stdout
