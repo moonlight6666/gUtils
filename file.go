@@ -23,6 +23,20 @@ func EnsureDir(dir string) error {
 		return err
 	}
 }
+
+func EnsureDirPerm(dir string, perm os.FileMode) error {
+	_, err := os.Stat(dir)
+	if err == nil {
+		return nil
+	}
+	if os.IsNotExist(err) {
+		err := os.MkdirAll(dir, perm)
+		return err
+	} else {
+		return err
+	}
+}
+
 func IsDir(path string) bool {
 	path = filepath.ToSlash(path)
 	length := len(path)
