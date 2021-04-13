@@ -11,7 +11,7 @@ func FormatPercentageRate(value int, denominator int, remainNum int)string {
 	return fmt.Sprintf("%.2f%%", CalcRate(value *100, denominator, remainNum))
 }
 
-//计算比率，并保留N位小数 CaclRate(3,10,2) -> return 0.30
+//计算比率,并保留N位小数 CaclRate(3,10,2) -> return 0.30
 func CalcRate(value int, denominator int, n int) float32 {
 	if denominator == 0 {
 		return 0
