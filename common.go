@@ -2,14 +2,10 @@ package gUtils
 
 import (
 	"crypto/md5"
-	"encoding/json"
 	"fmt"
-	"io/ioutil"
-	"net/http"
 	"os"
 	"os/exec"
 	"runtime"
-	"strings"
 )
 
 func CheckErrorExit(err error, msg ...string) {
@@ -50,67 +46,6 @@ func CheckError(err error, msg ... string) {
 	}
 }
 
-
-// 获取ip归属地
-func GetIpLocation(ip string) (string, error) {
-	if strings.HasPrefix(ip, "192.168") || ip == "127.0.0.1" {
-		return "内网", nil
-	}
-	url := "http://ip.taobao.com/service/getIpInfo.php?ip=" + ip
-	var result struct {
-		Code int
-		Data struct {
-			Country string
-			Region  string
-			City    string
-			Isp     string
-		}
-	}
-	resp, err := http.Get(url)
-	if err != nil {
-		return "未知", err
-	}
-	defer resp.Body.Close()
-	body, err := ioutil.ReadAll(resp.Body)
-	if err != nil {
-		return "未知", err
-	}
-	//logs.Info("result:%v", string(body))
-
-	err = json.Unmarshal(body, &result)
-	if err != nil {
-		return "未知", err
-	}
-	if result.Code == 0 {
-		if result.Data.Country == "中国" {
-			return result.Data.Region + "." + result.Data.City + " " + result.Data.Isp, nil
-		}
-		return result.Data.Country + "." + result.Data.Region + "." + result.Data.City + " " + result.Data.Isp, nil
-	}
-	return "未知", err
-}
-
-func IsInArray(v string, array [] string) bool {
-	for _, e := range array {
-		if e == v {
-			return true
-		}
-	}
-	return false
-}
-
-func RemoveDuplicateArray(s [] interface{}) [] interface{} {
-	maps := make(map[interface{}]interface{}, len(s))
-	r := make([] interface{}, 0)
-	for _, v := range s {
-		if _, ok := maps[v]; ok {
-			continue
-		}
-		maps[v] = true
-		r = append(r, v)
-	}
-	return r
-}
 
 func FormatFileSize(size int64) string {
 	i := float32(size) / 1024.0
