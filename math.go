@@ -31,3 +31,23 @@ func Decimal(f float64, n int) float64 {
 	n10 := math.Pow10(n)
 	return math.Trunc((f+0.5/n10)*n10) / n10
 }
+
+func Max(vals...int) int {
+	var max int
+	for _, val := range vals {
+		if val > max {
+			max = val
+		}
+	}
+	return max
+}
+
+func Min(vals...int) int {
+	var min int
+	for _, val := range vals {
+		if val <= min {
+			min = val
+		}
+	}
+	return min
+}
