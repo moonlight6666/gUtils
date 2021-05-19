@@ -84,3 +84,7 @@ func IsPortInUse(port int) bool {
 	}
 	return false
 }
+
+func StructToStr(ins interface{}) string {
+	return fmt.Sprintf("%+v", ins)
+}

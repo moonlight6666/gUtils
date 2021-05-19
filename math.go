@@ -51,3 +51,44 @@ func Min(vals...int) int {
 	}
 	return min
 }
+
+
+func MaxInt32(vals...int32) int32 {
+	var max int32
+	for _, val := range vals {
+		if val > max {
+			max = val
+		}
+	}
+	return max
+}
+
+func MinInt32(vals...int32) int32 {
+	var min int32
+	for _, val := range vals {
+		if val <= min {
+			min = val
+		}
+	}
+	return min
+}
+
+func MaxInt64(vals...int64) int64 {
+	var max int64
+	for _, val := range vals {
+		if val > max {
+			max = val
+		}
+	}
+	return max
+}
+
+func MinInt64(vals...int64) int64 {
+	var min int64
+	for _, val := range vals {
+		if val <= min {
+			min = val
+		}
+	}
+	return min
+}

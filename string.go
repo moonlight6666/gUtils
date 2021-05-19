@@ -2,11 +2,12 @@ package gUtils
 
 import (
 	"math/rand"
+	"reflect"
 	"strconv"
 	"strings"
 	"time"
+	"unsafe"
 )
-
 
 //RandomString 在数字、大写字母、小写字母范围内生成num位的随机字符串
 func RandomString(length int) string {
@@ -30,8 +31,7 @@ func RandomString(length int) string {
 	return strings.Join(result, "")
 }
 
-
-func HasSuffixs(path string, ignoreList [] string) bool{
+func HasSuffixs(path string, ignoreList [] string) bool {
 	for _, e := range ignoreList {
 		if strings.HasSuffix(path, e) {
 			return true
@@ -40,12 +40,27 @@ func HasSuffixs(path string, ignoreList [] string) bool{
 	return false
 }
 
-
-func HasStrings(s string, ignoreList [] string) bool{
-	for _, i := range  ignoreList {
-		if strings.Contains(s, i)  {
+func HasStrings(s string, ignoreList [] string) bool {
+	for _, i := range ignoreList {
+		if strings.Contains(s, i) {
 			return true
 		}
 	}
 	return false
+}
+
+// Unsafe read only
+func UnsafeString2Bytes(s string) []byte {
+	sh := (*reflect.StringHeader)(unsafe.Pointer(&s))
+	bh := reflect.SliceHeader{
+		Data: sh.Data,
+		Len:  sh.Len,
+		Cap:  sh.Len,
+	}
+	return *(*[]byte)(unsafe.Pointer(&bh))
+}
+
+// Unsafe read only
+func UnsafeBytes2String(b []byte) string {
+	return *(*string)(unsafe.Pointer(&b))
 }
