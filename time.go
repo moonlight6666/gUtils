@@ -27,15 +27,35 @@ func IsToday(timestamp int64) bool {
 	return t.Year() == now.Year() &&  t.Month() == now.Month() && t.Day() == now.Day()
 }
 
+//是否是本月
+func IsThisMonth(timestamp int64) bool {
+	t := time.Unix(timestamp, 0)
+	now := time.Now()
+	return t.Year() == now.Year() &&  t.Month() == now.Month()
+}
+
 // 获取当前时间戳
 func GetTimestamp() int {
 	return int(time.Now().Unix())
+}
+
+// 转换时间戳
+func TranTimestamp(year int, month int, day int, hour int, min int, sec int) int {
+	t := time.Date(year, time.Month(month), day, hour, min, sec, 0, time.Local)
+	return int(t.Unix())
 }
 
 //获取今日0点时间戳
 func GetTodayZeroTimestamp() int {
 	t := time.Now()
 	tm1 := time.Date(t.Year(), t.Month(), t.Day(), 0, 0, 0, 0, t.Location())
+	return int(tm1.Unix())
+}
+
+//获取今日23点59分59秒时间戳
+func GetTodayEndTimestamp() int {
+	t := time.Now()
+	tm1 := time.Date(t.Year(), t.Month(), t.Day(), 23, 59, 59, 0, t.Location())
 	return int(tm1.Unix())
 }
 
