@@ -20,6 +20,22 @@ func GetThatZeroTimestamp(timestamp int64) int {
 	return int(t1.Unix())
 }
 
+// 获取本月1号时间戳
+func GetThisMonthFirstDayTimestamp(timestamp int) int {
+	t := time.Unix(int64(timestamp), 0)
+	return int(time.Date(t.Year(), t.Month(), 1, 0, 0, 0, 0, time.Local).Unix())
+}
+
+// 获取下月1号时间戳
+func GetNextMonthFirstDayTimestamp(timestamp int) int {
+	t := time.Unix(int64(timestamp), 0)
+	if t.Month() == 12 {
+		return int(time.Date(t.Year() + 1, 1, 1, 0, 0, 0, 0, time.Local).Unix())
+	} else {
+		return int(time.Date(t.Year(), t.Month() + 1, 1, 0, 0, 0, 0, time.Local).Unix())
+	}
+}
+
 //是否是今天
 func IsToday(timestamp int64) bool {
 	t := time.Unix(timestamp, 0)
