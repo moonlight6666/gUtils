@@ -33,9 +33,11 @@ func Decimal(f float64, n int) float64 {
 }
 
 func Max(vals...int) int {
+	isSet := false
 	var max int
 	for _, val := range vals {
-		if val > max {
+		if val > max || isSet == false{
+			isSet = true
 			max = val
 		}
 	}
@@ -43,9 +45,11 @@ func Max(vals...int) int {
 }
 
 func Min(vals...int) int {
+	isSet := false
 	var min int
 	for _, val := range vals {
-		if val <= min {
+		if val <= min || isSet == false{
+			isSet = true
 			min = val
 		}
 	}
@@ -54,9 +58,11 @@ func Min(vals...int) int {
 
 
 func MaxInt32(vals...int32) int32 {
+	isSet := false
 	var max int32
 	for _, val := range vals {
-		if val > max {
+		if val > max || isSet == false{
+			isSet = true
 			max = val
 		}
 	}
@@ -64,9 +70,11 @@ func MaxInt32(vals...int32) int32 {
 }
 
 func MinInt32(vals...int32) int32 {
+	isSet := false
 	var min int32
 	for _, val := range vals {
-		if val <= min {
+		if val <= min || isSet == false{
+			isSet = true
 			min = val
 		}
 	}
@@ -74,9 +82,11 @@ func MinInt32(vals...int32) int32 {
 }
 
 func MaxInt64(vals...int64) int64 {
+	isSet := false
 	var max int64
 	for _, val := range vals {
-		if val > max {
+		if val > max || isSet == false {
+			isSet = true
 			max = val
 		}
 	}
@@ -84,9 +94,11 @@ func MaxInt64(vals...int64) int64 {
 }
 
 func MinInt64(vals...int64) int64 {
+	isSet := false
 	var min int64
 	for _, val := range vals {
-		if val <= min {
+		if val <= min || isSet == false {
+			isSet = true
 			min = val
 		}
 	}
