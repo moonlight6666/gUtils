@@ -7,8 +7,8 @@ import (
 )
 
 // 计算百分比率 FormatPercentageRate(3,10,2) -> return 30%
-func FormatPercentageRate(value int, denominator int, remainNum int)string {
-	return fmt.Sprintf("%.2f%%", CalcRate(value *100, denominator, remainNum))
+func FormatPercentageRate(value int, denominator int, remainNum int) string {
+	return fmt.Sprintf("%.2f%%", CalcRate(value*100, denominator, remainNum))
 }
 
 //计算比率,并保留N位小数 CaclRate(3,10,2) -> return 0.30
@@ -25,65 +25,15 @@ func CalcRate(value int, denominator int, n int) float32 {
 	return 0
 }
 
-
 // 保留N位小数点
 func Decimal(f float64, n int) float64 {
 	n10 := math.Pow10(n)
 	return math.Trunc((f+0.5/n10)*n10) / n10
 }
 
-func Max(vals...int) int {
+func Max[T int | uint | int8 | uint8 | int16 | uint16 | int32 | uint32 | int64 | uint64 | float32 | float64](vals ...T) T {
 	isSet := false
-	var max int
-	for _, val := range vals {
-		if val > max || isSet == false{
-			isSet = true
-			max = val
-		}
-	}
-	return max
-}
-
-func Min(vals...int) int {
-	isSet := false
-	var min int
-	for _, val := range vals {
-		if val <= min || isSet == false{
-			isSet = true
-			min = val
-		}
-	}
-	return min
-}
-
-
-func MaxInt32(vals...int32) int32 {
-	isSet := false
-	var max int32
-	for _, val := range vals {
-		if val > max || isSet == false{
-			isSet = true
-			max = val
-		}
-	}
-	return max
-}
-
-func MinInt32(vals...int32) int32 {
-	isSet := false
-	var min int32
-	for _, val := range vals {
-		if val <= min || isSet == false{
-			isSet = true
-			min = val
-		}
-	}
-	return min
-}
-
-func MaxInt64(vals...int64) int64 {
-	isSet := false
-	var max int64
+	var max T
 	for _, val := range vals {
 		if val > max || isSet == false {
 			isSet = true
@@ -93,9 +43,9 @@ func MaxInt64(vals...int64) int64 {
 	return max
 }
 
-func MinInt64(vals...int64) int64 {
+func Min[T int | uint | int8 | uint8 | int16 | uint16 | int32 | uint32 | int64 | uint64 | float32 | float64](vals ...T) T {
 	isSet := false
-	var min int64
+	var min T
 	for _, val := range vals {
 		if val <= min || isSet == false {
 			isSet = true
