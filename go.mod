@@ -1,3 +1,3 @@
-module github.com/chnzrb/gUtils
+module github.com/moonlight6666/gUtils
 
 go 1.12
