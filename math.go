@@ -8,6 +8,9 @@ import (
 
 // 计算百分比率 FormatPercentageRate(3,10,2) -> return 30%
 func FormatPercentageRate(value int, denominator int, remainNum int) string {
+	if denominator == 0 {
+		return "-"
+	}
 	return fmt.Sprintf("%.2f%%", CalcRate(value*100, denominator, remainNum))
 }
 
