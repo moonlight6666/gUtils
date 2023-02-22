@@ -1,11 +1,12 @@
 package gUtils
 
 import (
+	"encoding/json"
+	"errors"
 	"io/ioutil"
 	"net/http"
 	"net/url"
 	"strings"
-	"errors"
 	"time"
 )
 
@@ -31,15 +32,23 @@ func HttpGet(apiURL string, data string) (rs []byte, err error) {
 	return ioutil.ReadAll(resp.Body)
 }
 
-
 // post form
 func HttpPostForm(url string, data string) ([]byte, error) {
-	return HttpPost(url , "application/x-www-form-urlencoded", data )
+	return HttpPost(url, "application/x-www-form-urlencoded", data)
+}
+
+// post json struct
+func HttpPostJsonWithStruct(url string, data any) ([]byte, error) {
+	b, err := json.Marshal(data)
+	if err != nil {
+		return nil, err
+	}
+	return HttpPostJson(url, string(b))
 }
 
 // post json
 func HttpPostJson(url string, data string) ([]byte, error) {
-	return HttpPost(url , "application/json", data )
+	return HttpPost(url, "application/json", data)
 }
 
 // post
