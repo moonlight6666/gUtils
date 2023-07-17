@@ -14,7 +14,7 @@ func FormatPercentageRate(value int, denominator int, remainNum int) string {
 	return fmt.Sprintf("%.2f%%", CalcRate(value*100, denominator, remainNum))
 }
 
-//计算比率,并保留N位小数 CaclRate(3,10,2) -> return 0.30
+// 计算比率,并保留N位小数 CaclRate(3,10,2) -> return 0.30
 func CalcRate(value int, denominator int, n int) float32 {
 	if denominator == 0 {
 		return 0
@@ -32,6 +32,14 @@ func CalcRate(value int, denominator int, n int) float32 {
 func Decimal(f float64, n int) float64 {
 	n10 := math.Pow10(n)
 	return math.Trunc((f+0.5/n10)*n10) / n10
+}
+
+func Sum[T int | uint | int8 | uint8 | int16 | uint16 | int32 | uint32 | int64 | uint64 | float32 | float64](vals ...T) T {
+	var sum T
+	for _, val := range vals {
+		sum += val
+	}
+	return sum
 }
 
 func Max[T int | uint | int8 | uint8 | int16 | uint16 | int32 | uint32 | int64 | uint64 | float32 | float64](vals ...T) T {
