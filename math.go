@@ -34,7 +34,7 @@ func Decimal(f float64, n int) float64 {
 	return math.Trunc((f+0.5/n10)*n10) / n10
 }
 
-func Sum[T int | uint | int8 | uint8 | int16 | uint16 | int32 | uint32 | int64 | uint64 | float32 | float64](vals ...T) T {
+func Sum[T Number](vals ...T) T {
 	var sum T
 	for _, val := range vals {
 		sum += val
@@ -42,7 +42,7 @@ func Sum[T int | uint | int8 | uint8 | int16 | uint16 | int32 | uint32 | int64 |
 	return sum
 }
 
-func Max[T int | uint | int8 | uint8 | int16 | uint16 | int32 | uint32 | int64 | uint64 | float32 | float64](vals ...T) T {
+func Max[T Number](vals ...T) T {
 	isSet := false
 	var max T
 	for _, val := range vals {
@@ -54,7 +54,7 @@ func Max[T int | uint | int8 | uint8 | int16 | uint16 | int32 | uint32 | int64 |
 	return max
 }
 
-func Min[T int | uint | int8 | uint8 | int16 | uint16 | int32 | uint32 | int64 | uint64 | float32 | float64](vals ...T) T {
+func Min[T Number](vals ...T) T {
 	isSet := false
 	var min T
 	for _, val := range vals {

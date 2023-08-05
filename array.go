@@ -1,19 +1,10 @@
 package gUtils
 
-import "strconv"
+import (
+	"strconv"
+)
 
-func IsIntInArray(num int, data []int) bool {
-	if len(data) > 0 {
-		for _, row := range data {
-			if num == row {
-				return true
-			}
-		}
-	}
-	return false
-}
-
-func IsInArray(v string, array [] string) bool {
+func IsInArray[T Number | string](v T, array []T) bool {
 	for _, e := range array {
 		if e == v {
 			return true
@@ -21,19 +12,6 @@ func IsInArray(v string, array [] string) bool {
 	}
 	return false
 }
-
-
-func IsStrInArray(str string, data []string) bool {
-	if len(data) > 0 {
-		for _, row := range data {
-			if str == row {
-				return true
-			}
-		}
-	}
-	return false
-}
-
 
 // []string => []int
 func ArrayStr2Int(data []string) []int {
@@ -64,7 +42,7 @@ func ArrayInt2Str(data []int) []string {
 	return arr
 }
 
-//合并数组
+// 合并数组
 func MergeArray(dest []interface{}, src []interface{}) (result []interface{}) {
 	result = make([]interface{}, len(dest)+len(src))
 	copy(result, dest)
@@ -72,9 +50,9 @@ func MergeArray(dest []interface{}, src []interface{}) (result []interface{}) {
 	return
 }
 
-func RemoveDuplicateArray(s [] interface{}) [] interface{} {
+func RemoveDuplicateArray(s []interface{}) []interface{} {
 	maps := make(map[interface{}]interface{}, len(s))
-	r := make([] interface{}, 0)
+	r := make([]interface{}, 0)
 	for _, v := range s {
 		if _, ok := maps[v]; ok {
 			continue
@@ -83,4 +61,11 @@ func RemoveDuplicateArray(s [] interface{}) [] interface{} {
 		r = append(r, v)
 	}
 	return r
+}
+
+func Reverse[T any](slice []T) []T {
+	for i, j := 0, len(slice)-1; i < j; i, j = i+1, j-1 {
+		slice[i], slice[j] = slice[j], slice[i]
+	}
+	return slice
 }
