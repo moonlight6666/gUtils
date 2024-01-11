@@ -1,5 +1,7 @@
 package gUtils
 
+// 文件锁
+
 import (
 	"os"
 	"syscall"
@@ -27,7 +29,7 @@ func NewFileLock(file string) (*fileLock, error) {
 	return fl, nil
 }
 
-func (fl *fileLock) UnlockFile() error {
+func (fl *fileLock) Unlock() error {
 	defer fl.f.Close()
 	os.Remove(fl.filename)
 	return syscall.Flock(int(fl.f.Fd()), syscall.LOCK_UN)
