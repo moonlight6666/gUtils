@@ -5,7 +5,14 @@ import (
 	"time"
 )
 
-//获取昨日0点时间戳
+const (
+	MinuteSecond = 60
+	HourSecond   = MinuteSecond * 60
+	DaySecond    = HourSecond * 24
+	YearSecond   = DaySecond * 365
+)
+
+// 获取昨日0点时间戳
 func GetYesterdayZeroTimestamp() int {
 	return GetTodayZeroTimestamp() - 86400
 }
@@ -30,24 +37,24 @@ func GetThisMonthFirstDayTimestamp(timestamp int) int {
 func GetNextMonthFirstDayTimestamp(timestamp int) int {
 	t := time.Unix(int64(timestamp), 0)
 	if t.Month() == 12 {
-		return int(time.Date(t.Year() + 1, 1, 1, 0, 0, 0, 0, time.Local).Unix())
+		return int(time.Date(t.Year()+1, 1, 1, 0, 0, 0, 0, time.Local).Unix())
 	} else {
-		return int(time.Date(t.Year(), t.Month() + 1, 1, 0, 0, 0, 0, time.Local).Unix())
+		return int(time.Date(t.Year(), t.Month()+1, 1, 0, 0, 0, 0, time.Local).Unix())
 	}
 }
 
-//是否是今天
+// 是否是今天
 func IsToday(timestamp int64) bool {
 	t := time.Unix(timestamp, 0)
 	now := time.Now()
-	return t.Year() == now.Year() &&  t.Month() == now.Month() && t.Day() == now.Day()
+	return t.Year() == now.Year() && t.Month() == now.Month() && t.Day() == now.Day()
 }
 
-//是否是本月
+// 是否是本月
 func IsThisMonth(timestamp int64) bool {
 	t := time.Unix(timestamp, 0)
 	now := time.Now()
-	return t.Year() == now.Year() &&  t.Month() == now.Month()
+	return t.Year() == now.Year() && t.Month() == now.Month()
 }
 
 // 获取当前时间戳
@@ -61,14 +68,14 @@ func TranTimestamp(year int, month int, day int, hour int, min int, sec int) int
 	return int(t.Unix())
 }
 
-//获取今日0点时间戳
+// 获取今日0点时间戳
 func GetTodayZeroTimestamp() int {
 	t := time.Now()
 	tm1 := time.Date(t.Year(), t.Month(), t.Day(), 0, 0, 0, 0, t.Location())
 	return int(tm1.Unix())
 }
 
-//获取今日23点59分59秒时间戳
+// 获取今日23点59分59秒时间戳
 func GetTodayEndTimestamp() int {
 	t := time.Now()
 	tm1 := time.Date(t.Year(), t.Month(), t.Day(), 23, 59, 59, 0, t.Location())
@@ -108,4 +115,3 @@ func FormatMath(timestamp int64) string {
 	t := time.Unix(timestamp, 0)
 	return fmt.Sprintf("%d-%d", t.Year(), t.Month())
 }
-
