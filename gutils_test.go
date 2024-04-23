@@ -55,3 +55,25 @@ func TestSum(t *testing.T) {
 	var intList = []int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}
 	assert.Equal(t, Sum(intList...), 55)
 }
+
+func TestCalcWeight(t *testing.T) {
+	weights := []*Weight{
+		{Value: "1", Weight: 0},
+		{Value: "2", Weight: 0},
+		{Value: "3", Weight: 3},
+	}
+
+	w, err := CalcWeight(weights)
+	assert.Equal(t, err, nil)
+	assert.Equal(t, w.Value, "3")
+
+	weights = []*Weight{
+		{Value: "1", Weight: 0},
+		{Value: "2", Weight: 30},
+		{Value: "3", Weight: 0},
+	}
+
+	w, err = CalcWeight(weights)
+	assert.Equal(t, err, nil)
+	assert.Equal(t, w.Value, "2")
+}
