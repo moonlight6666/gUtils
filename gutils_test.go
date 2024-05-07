@@ -77,3 +77,11 @@ func TestCalcWeight(t *testing.T) {
 	assert.Equal(t, err, nil)
 	assert.Equal(t, w.Value, "2")
 }
+
+func TestIsChinese(t *testing.T) {
+	assert.Equal(t, IsChinese("你好"), true)
+	assert.Equal(t, IsChinese("你好1"), false)
+	assert.Equal(t, IsChinese("你好a"), false)
+	assert.Equal(t, IsChinese("你 好"), false)
+	assert.Equal(t, IsChinese(""), true)
+}
