@@ -15,22 +15,20 @@ func NewKeyLock() *KeyLock {
 
 func (kl *KeyLock) Lock(key string) {
 	kl.mu.Lock()
-	defer kl.mu.Unlock()
 	if _, exists := kl.locks[key]; !exists {
 		kl.locks[key] = &sync.Mutex{}
 	}
-	//kl.mu.Unlock()
+	kl.mu.Unlock()
 
 	kl.locks[key].Lock()
 }
 
 func (kl *KeyLock) TryLock(key string) bool {
 	kl.mu.Lock()
-	defer kl.mu.Unlock()
 	if _, exists := kl.locks[key]; !exists {
 		kl.locks[key] = &sync.Mutex{}
 	}
-	//kl.mu.Unlock()
+	kl.mu.Unlock()
 
 	return kl.locks[key].TryLock()
 }
