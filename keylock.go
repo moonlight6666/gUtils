@@ -7,6 +7,8 @@ type KeyLock struct {
 	locks map[string]*sync.Mutex
 }
 
+var GlobalKeyLock = NewKeyLock()
+
 func NewKeyLock() *KeyLock {
 	return &KeyLock{
 		locks: make(map[string]*sync.Mutex),
