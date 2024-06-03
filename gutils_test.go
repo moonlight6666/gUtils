@@ -85,3 +85,44 @@ func TestIsChinese(t *testing.T) {
 	assert.Equal(t, IsChinese("你 好"), false)
 	assert.Equal(t, IsChinese(""), true)
 }
+
+func TestRandomString(t *testing.T) {
+	t.Logf("TestRandomString:%s", RandomString(10))
+}
+
+func BenchmarkRandomString(b *testing.B) {
+	b.ResetTimer()
+	for i := 0; i < b.N; i++ {
+		RandomString(16)
+	}
+}
+
+// go test -bench=.
+
+func TestCheckStructEmpty(t *testing.T) {
+	var s struct {
+		Name string
+		Age  int
+	}
+	err := CheckStructEmpty(s)
+	t.Logf("err:%s", err)
+	assert.Equal(t, err.Error(), "filed empty:Name")
+
+	err = CheckStructEmpty(&s)
+	t.Logf("err:%s", err)
+	assert.Equal(t, err.Error(), "filed empty:Name")
+
+	s.Name = "xiaoming"
+	err = CheckStructEmpty(s)
+	t.Logf("err:%s", err)
+	assert.Equal(t, err.Error(), "filed empty:Age")
+
+	err = CheckStructEmpty(s, "Age")
+	t.Logf("err:%s", err)
+	assert.Equal(t, err, nil)
+
+	s.Age = 1
+	err = CheckStructEmpty(s)
+	t.Logf("err:%s", err)
+	assert.Equal(t, err, nil)
+}

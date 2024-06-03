@@ -18,11 +18,11 @@ func CheckStructEmpty(s interface{}, ignoreFields ...string) error {
 		return errors.New("not a struct")
 	}
 
-	t := reflect.TypeOf(s)
+	t := value.Type()
 
-	if t.Kind() == reflect.Ptr {
-		t = t.Elem()
-	}
+	//if t.Kind() == reflect.Ptr {
+	//	t = t.Elem()
+	//}
 
 	for i := 0; i < value.NumField(); i++ {
 		field := value.Field(i)
