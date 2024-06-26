@@ -27,7 +27,7 @@ func Exit(msg ...string) {
 }
 
 func RecoverCatch() {
-	if err:=recover();err!=nil{
+	if err := recover(); err != nil {
 		var buf [4096]byte
 		n := runtime.Stack(buf[:], false)
 		fmt.Printf("Catch Stack =>\n %s\nReason: %v\n", string(buf[:n]), err)
@@ -40,12 +40,11 @@ func PrintStack(err interface{}) {
 	fmt.Printf("Catch Stack =>\n %s\nReason: %v\n", string(buf[:n]), err)
 }
 
-func CheckError(err error, msg ... string) {
+func CheckError(err error, msg ...string) {
 	if err != nil {
 		fmt.Printf("%s %v", msg, err)
 	}
 }
-
 
 func FormatFileSize(size int64) string {
 	i := float32(size) / 1024.0
@@ -60,21 +59,15 @@ func FormatFileSize(size int64) string {
 	return fmt.Sprintf("%.2fkb", float32(size)/1024.0)
 }
 
-
-func Md5(s []byte ) string{
+func Md5(s []byte) string {
 	return fmt.Sprintf("%x", md5.Sum(s))
 }
 
-//将字符串加密成 md5
+// 将字符串加密成 md5
 func Md5String(str string) string {
 	data := []byte(str)
 	return Md5(data) //将[]byte转成16进制
 }
-
-
-
-
-
 
 func IsPortInUse(port int) bool {
 	checkStatement := fmt.Sprintf("lsof -i:%d ", port)
@@ -87,4 +80,11 @@ func IsPortInUse(port int) bool {
 
 func StructToStr(ins interface{}) string {
 	return fmt.Sprintf("%+v", ins)
+}
+
+func IfThen[T any](condition bool, true T, false T) T {
+	if condition {
+		return true
+	}
+	return false
 }

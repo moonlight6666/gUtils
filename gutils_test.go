@@ -126,3 +126,15 @@ func TestCheckStructEmpty(t *testing.T) {
 	t.Logf("err:%s", err)
 	assert.Equal(t, err, nil)
 }
+
+func TestIfThen(t *testing.T) {
+
+	assert.Equal(t, IfThen(true, 1, 0), 1)
+	assert.Equal(t, IfThen(false, 1, 0), 0)
+
+	age := 20
+	assert.Equal(t, IfThen(age > 10, "old", "young"), "old")
+
+	age = 1
+	assert.Equal(t, IfThen(age > 10, "old", "young"), "young")
+}
