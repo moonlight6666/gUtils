@@ -83,7 +83,7 @@ func GetTodayEndTimestamp() int {
 }
 
 // return %d小时 | %d时%d分%d秒 | %d分 | %d分%d秒 | %d秒
-func FormatTimeLength[T Integer](sec T) string {
+func FormatTimeLength(sec int) string {
 	h := sec / (60 * 60)
 	m := sec % (60 * 60) / 60
 	s := sec % 60
