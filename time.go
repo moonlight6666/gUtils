@@ -82,13 +82,18 @@ func GetTodayEndTimestamp() int {
 	return int(tm1.Unix())
 }
 
-func FormatTimeLength(sec int) string {
+// return %d小时 | %d时%d分%d秒 | %d分 | %d分%d秒 | %d秒
+func FormatTimeLength[T Integer](sec T) string {
 	h := sec / (60 * 60)
 	m := sec % (60 * 60) / 60
 	s := sec % 60
-	if h > 0 && m > 0 && s > 0 {
+	if h > 0 && m == 0 && s == 0 {
+		return fmt.Sprintf("%d小时", h)
+	} else if h > 0 {
 		return fmt.Sprintf("%d时%d分%d秒", h, m, s)
-	} else if m > 0 && s > 0 {
+	} else if m > 0 && s == 0 {
+		return fmt.Sprintf("%d分", m)
+	} else if m > 0 {
 		return fmt.Sprintf("%d分%d秒", m, s)
 	} else {
 		return fmt.Sprintf("%d秒", sec)
