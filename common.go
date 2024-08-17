@@ -1,7 +1,6 @@
 package gUtils
 
 import (
-	"crypto/md5"
 	"fmt"
 	"os"
 	"os/exec"
@@ -57,16 +56,6 @@ func FormatFileSize(size int64) string {
 		return fmt.Sprintf("%.2fM", i)
 	}
 	return fmt.Sprintf("%.2fkb", float32(size)/1024.0)
-}
-
-func Md5(s []byte) string {
-	return fmt.Sprintf("%x", md5.Sum(s))
-}
-
-// 将字符串加密成 md5
-func Md5String(str string) string {
-	data := []byte(str)
-	return Md5(data) //将[]byte转成16进制
 }
 
 func IsPortInUse(port int) bool {

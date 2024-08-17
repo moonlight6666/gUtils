@@ -138,3 +138,13 @@ func TestIfThen(t *testing.T) {
 	age = 1
 	assert.Equal(t, IfThen(age > 10, "old", "young"), "young")
 }
+
+func TestMd5(t *testing.T) {
+	s := Md5String("172380068220000009908a96d8fbf694e1911a2c6e1d91a198.CQGAME")
+	assert.Equal(t, s, "94ad8936057de9133c1d60dd9e6370de")
+}
+
+func TestSHA1(t *testing.T) {
+	s := SHA1("94ad8936057de9133c1d60dd9e6370de")
+	assert.Equal(t, s, "ecf9cf8ee545da387d81f3eb897a9a0b40614af0")
+}
