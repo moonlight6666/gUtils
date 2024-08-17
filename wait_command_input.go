@@ -30,7 +30,7 @@ func (w *WaitCommandInput) do(name, defaultValue string) string {
 		if defaultValue == "" {
 			fmt.Printf("请输入%s：", name)
 		} else {
-			fmt.Printf("请输入%s(默认值:%s)：", defaultValue, name)
+			fmt.Printf("请输入%s(默认值:%s)：", name, defaultValue)
 		}
 		w.scanner.Scan()
 		input = strings.TrimSpace(w.scanner.Text())
