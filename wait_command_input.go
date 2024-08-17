@@ -3,11 +3,18 @@ package gUtils
 import (
 	"bufio"
 	"fmt"
+	"os"
 	"strings"
 )
 
 type WaitCommandInput struct {
-	scanner bufio.Scanner
+	scanner *bufio.Scanner
+}
+
+func NewWaitCommandInput() *WaitCommandInput {
+	return &WaitCommandInput{
+		scanner: bufio.NewScanner(os.Stdin),
+	}
 }
 
 func (w *WaitCommandInput) Wait(name string) string {
