@@ -5,6 +5,7 @@ import (
 	"bytes"
 	"fmt"
 	"io"
+	"log"
 	"os/exec"
 	"strings"
 )
@@ -29,7 +30,7 @@ func Cmd(commandName string, params []string) (string, error) {
 
 func CmdAndChangeDir(dir string, commandName string, params []string) (string, error) {
 	cmd := exec.Command(commandName, params...)
-	fmt.Println("CmdAndChangeDir", dir, cmd.Args)
+	log.Println("CmdAndChangeDir", dir, cmd.Args)
 	var out bytes.Buffer
 	cmd.Stdout = &out
 	cmd.Stderr = cmd.Stdout
@@ -49,7 +50,7 @@ func CmdAndChangeDir(dir string, commandName string, params []string) (string, e
 
 func CmdAndRealTimePrint(dir string, commandName string, out io.Writer, params []string) error {
 	cmd := exec.Command(commandName, params...)
-	fmt.Println("CmdAndRealTimeOut", cmd.Args)
+	log.Println("CmdAndRealTimeOut", cmd.Args)
 	fmt.Fprintf(out, "$%s %s\n", dir, strings.Join(cmd.Args, " "))
 	// 命令的错误输出和标准输出都连接到同一个管道
 	stdout, err := cmd.StdoutPipe()
@@ -90,7 +91,7 @@ func CmdAndRealTimePrint(dir string, commandName string, out io.Writer, params [
 }
 
 func ExecShell(s string) (string, error) {
-	fmt.Println(s)
+	log.Println(s)
 	cmd := exec.Command("/bin/bash", "-c", s)
 	var out bytes.Buffer
 
@@ -105,4 +106,3 @@ func ExecShell(s string) (string, error) {
 	////fmt.Printf("%s", out.String())
 	//return out.String(), nil
 }
-

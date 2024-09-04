@@ -148,3 +148,42 @@ func TestSHA1(t *testing.T) {
 	s := SHA1("94ad8936057de9133c1d60dd9e6370de")
 	assert.Equal(t, s, "ecf9cf8ee545da387d81f3eb897a9a0b40614af0")
 }
+
+type testStruct struct {
+	Name  string `json:"name"`
+	Age   int    `json:"age"`
+	Level int    `json:"level,omitempty"`
+	From  string `json:"from,omitempty"`
+}
+
+func TestMakeSignSource(t *testing.T) {
+	v := testStruct{
+		Name:  "xiaoming",
+		Age:   99,
+		Level: 10,
+		From:  "china",
+	}
+	source, err := MakeSignSource(v, "json", false, ' ', '#')
+	assert.Equal(t, err, nil)
+	assert.Equal(t, source, "99#china#10#xiaoming")
+
+	source, err = MakeSignSource(v, "json", true, '=', '#')
+	assert.Equal(t, err, nil)
+	assert.Equal(t, source, "age=99#from=china#level=10#name=xiaoming")
+
+	source, err = MakeSignSource(v, "json", true, '=', '&')
+	assert.Equal(t, err, nil)
+	assert.Equal(t, source, "age=99&from=china&level=10&name=xiaoming")
+}
+
+func TestMakeSignSourceForm(t *testing.T) {
+	v := testStruct{
+		Name:  "xiaoming",
+		Age:   99,
+		Level: 10,
+		From:  "china",
+	}
+	source, err := MakeSignSourceForm(v, "json")
+	assert.Equal(t, err, nil)
+	assert.Equal(t, source, "age=99&from=china&level=10&name=xiaoming")
+}

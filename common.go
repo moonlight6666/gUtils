@@ -2,6 +2,7 @@ package gUtils
 
 import (
 	"fmt"
+	"log"
 	"os"
 	"os/exec"
 	"runtime"
@@ -12,7 +13,7 @@ func CheckErrorExit(err error, msg ...string) {
 		_, file, line, _ := runtime.Caller(1)
 		//fileBaseName := filepath.Base(file)
 		//color.RedString("[ERROR] %s:%d %s %v\n", file, line, msg, err)
-		fmt.Printf("\x1b[0;31m[ERROR] %s:%d %s %v\n\x1b[0m", file, line, msg, err)
+		log.Printf("\x1b[0;31m[ERROR] %s:%d %s %v\n\x1b[0m", file, line, msg, err)
 		os.Exit(1)
 	}
 }
@@ -21,7 +22,7 @@ func Exit(msg ...string) {
 	_, file, line, _ := runtime.Caller(1)
 	//fileBaseName := filepath.Base(file)
 	//color.Red("[ERROR] %s:%d %s\n", file, line, msg)
-	fmt.Printf("\x1b[0;31m[ERROR] %s:%d %s\n\x1b[0m", file, line, msg)
+	log.Printf("\x1b[0;31m[ERROR] %s:%d %s\n\x1b[0m", file, line, msg)
 	os.Exit(1)
 }
 
@@ -29,19 +30,19 @@ func RecoverCatch() {
 	if err := recover(); err != nil {
 		var buf [4096]byte
 		n := runtime.Stack(buf[:], false)
-		fmt.Printf("Catch Stack =>\n %s\nReason: %v\n", string(buf[:n]), err)
+		log.Printf("Catch Stack =>\n %s\nReason: %v\n", string(buf[:n]), err)
 
 	}
 }
 func PrintStack(err interface{}) {
 	var buf [4096]byte
 	n := runtime.Stack(buf[:], false)
-	fmt.Printf("Catch Stack =>\n %s\nReason: %v\n", string(buf[:n]), err)
+	log.Printf("Catch Stack =>\n %s\nReason: %v\n", string(buf[:n]), err)
 }
 
 func CheckError(err error, msg ...string) {
 	if err != nil {
-		fmt.Printf("%s %v", msg, err)
+		log.Printf("%s %v", msg, err)
 	}
 }
 

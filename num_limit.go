@@ -2,6 +2,7 @@ package gUtils
 
 import (
 	"fmt"
+	"log"
 	"sync"
 )
 
@@ -22,7 +23,7 @@ func (n *numLimit) TryAdd() bool {
 	defer n.mutex.Unlock()
 	if n.num < n.maxNum {
 		n.num++
-		fmt.Println("numLimit TryAdd:", n.num)
+		log.Println("numLimit TryAdd:", n.num)
 		return true
 	}
 	return false
@@ -32,7 +33,7 @@ func (n *numLimit) Done() {
 	n.mutex.Lock()
 	defer n.mutex.Unlock()
 	n.num--
-	fmt.Println("numLimit Done:", n.num)
+	log.Println("numLimit Done:", n.num)
 	if n.num < 0 {
 		panic(fmt.Sprintf("numLimit fetal error:%d", n.num))
 	}

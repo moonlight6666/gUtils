@@ -2,6 +2,7 @@ package gUtils
 
 import (
 	"fmt"
+	"log"
 	"sync"
 	"time"
 )
@@ -28,12 +29,12 @@ func NewMonitorCostTime(name string) *monitorCostTime {
 }
 
 func (s *monitorCostTime) Start() {
-	fmt.Printf("执行 [%s] 开始\n", s.functionName)
+	log.Printf("执行 [%s] 开始\n", s.functionName)
 	s.startTime = time.Now().UnixNano() / 1000000
 }
 
 func (s *monitorCostTime) Stop() {
-	fmt.Printf("执行 [%s] 完成, 耗时: %s\n", s.functionName, formatTime(s.UseTime()))
+	log.Printf("执行 [%s] 完成, 耗时: %s\n", s.functionName, formatTime(s.UseTime()))
 }
 
 func (s *monitorCostTime) UseTime() int64 {
