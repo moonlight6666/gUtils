@@ -12,10 +12,6 @@ const (
 	YearSecond   = DaySecond * 365
 )
 
-var (
-	cst *time.Location
-)
-
 // CSTLayout China Standard Time Layout
 const CSTLayout = "2006-01-02 15:04:05"
 
@@ -131,7 +127,7 @@ func FormatMath(timestamp int64) string {
 // CSTLayoutStringToUnix 返回 unix 时间戳
 // 2020-01-24 21:11:11 => 1579871471
 func CSTLayoutStringToUnix(cstLayoutString string) (int64, error) {
-	stamp, err := time.ParseInLocation(CSTLayout, cstLayoutString, cst)
+	stamp, err := time.ParseInLocation(CSTLayout, cstLayoutString, time.Local)
 	if err != nil {
 		return 0, err
 	}
