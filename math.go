@@ -65,3 +65,43 @@ func Min[T Number](vals ...T) T {
 	}
 	return min
 }
+
+func MinBy[T any](collection []T, comparison func(a T, b T) bool) T {
+	var min T
+
+	if len(collection) == 0 {
+		return min
+	}
+
+	min = collection[0]
+
+	for i := 1; i < len(collection); i++ {
+		item := collection[i]
+
+		if comparison(item, min) {
+			min = item
+		}
+	}
+
+	return min
+}
+
+func MaxBy[T any](collection []T, comparison func(a T, b T) bool) T {
+	var max T
+
+	if len(collection) == 0 {
+		return max
+	}
+
+	max = collection[0]
+
+	for i := 1; i < len(collection); i++ {
+		item := collection[i]
+
+		if comparison(item, max) {
+			max = item
+		}
+	}
+
+	return max
+}

@@ -1,21 +1,21 @@
 package gUtils
 
 import (
-	"encoding/json"
+	"fmt"
 	"github.com/magiconair/properties/assert"
 	"testing"
 )
 
-func TestReverse(t *testing.T) {
-	var r = []int{3, 2, 1, 4, 5}
-	want, _ := json.Marshal([]int{5, 4, 1, 2, 3})
-	Reverse(r)
-	got, _ := json.Marshal(r)
-	//t.Logf("got:%s", got)
-	//t.Logf("want:%s", want)
-
-	assert.Equal(t, string(got), string(want))
-}
+//func TestReverse(t *testing.T) {
+//	var r = []int{3, 2, 1, 4, 5}
+//	want, _ := json.Marshal([]int{5, 4, 1, 2, 3})
+//	Reverse(r)
+//	got, _ := json.Marshal(r)
+//	//t.Logf("got:%s", got)
+//	//t.Logf("want:%s", want)
+//
+//	assert.Equal(t, string(got), string(want))
+//}
 
 func TestSlice(t *testing.T) {
 	var r = []int{1, 2, 3, 4, 5, 6, 7, 8, 9, 10}
@@ -186,4 +186,54 @@ func TestMakeSignSourceForm(t *testing.T) {
 	source, err := MakeSignSourceForm(v, "json")
 	assert.Equal(t, err, nil)
 	assert.Equal(t, source, "age=99&from=china&level=10&name=xiaoming")
+}
+
+func TestUniq(t *testing.T) {
+	r := Uniq([]int{9, 1, 1, 2, 9})
+	assert.Equal(t, r, []int{9, 1, 2})
+
+	r = Uniq([]int{})
+	assert.Equal(t, r, []int{})
+
+	r2 := Uniq([]string{"qq", "wx", "qq", "qq"})
+	assert.Equal(t, r2, []string{"qq", "wx"})
+
+	r3 := Uniq([]interface{}{1, "2", "a", "2"})
+	assert.Equal(t, r3, []interface{}{1, "2", "a"})
+}
+
+func TestFilter(t *testing.T) {
+	r := Filter([]int{1, 2, 3, 4, 5}, func(v int, _ int) bool {
+		return v%2 == 0
+	})
+	assert.Equal(t, r, []int{2, 4})
+
+	r2 := Filter([]string{"", "1", "3", ""}, func(v string, _ int) bool {
+		return v != ""
+	})
+	assert.Equal(t, r2, []string{"1", "3"})
+}
+
+func TestMap(t *testing.T) {
+	r := Map([]int{1, 2, 3}, func(item int, index int) string {
+		return fmt.Sprintf("s%d", item)
+	})
+
+	assert.Equal(t, r, []string{"s1", "s2", "s3"})
+}
+
+func TestGroupBy(t *testing.T) {
+	r := GroupBy([]int{0, 1, 2, 3}, func(i int) int {
+		return i % 2
+	})
+	assert.Equal(t, r, map[int][]int{0: []int{0, 2}, 1: []int{1, 3}})
+}
+
+func TestReverse(t *testing.T) {
+	assert.Equal(t, Reverse([]int{2, 3, 4}), []int{4, 3, 2})
+	assert.Equal(t, Reverse([]int{2, 3, 4, 1}), []int{1, 4, 3, 2})
+	assert.Equal(t, Reverse([]int{}), []int{})
+	assert.Equal(t, Reverse([]int{1}), []int{1})
+
+	assert.Equal(t, Reverse([]string{"a", "c"}), []string{"c", "a"})
 }
