@@ -1,6 +1,7 @@
 package gUtils
 
 import (
+	"crypto/hmac"
 	"crypto/md5"
 	"crypto/sha1"
 	"crypto/sha256"
@@ -27,4 +28,11 @@ func SHA256(s string) string {
 	o := sha256.New()
 	o.Write([]byte(s))
 	return hex.EncodeToString(o.Sum(nil))
+}
+
+func HMAC_SHA256(s string, k string) string {
+	h := hmac.New(sha256.New, []byte(k))
+	h.Write([]byte(s))
+	digest := h.Sum(nil)
+	return hex.EncodeToString(digest)
 }

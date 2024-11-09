@@ -153,6 +153,10 @@ func TestSHA256(t *testing.T) {
 	s := SHA256("94ad8936057de9133c1d60dd9e6370de")
 	assert.Equal(t, s, "a23c3c3a205df858e96717b7db57a1524e639ea702ed00221aecfb62721558cb")
 }
+func TestHMAC_SHA256(t *testing.T) {
+	s := HMAC_SHA256("94ad8936057de9133c1d60dd9e6370de", "78g2323f")
+	assert.Equal(t, s, "a4597d4130329af5500c6a08144730d13744bf97dd068e7474cfb55b3bc0c553")
+}
 
 type testStruct struct {
 	Name  string `json:"name"`
