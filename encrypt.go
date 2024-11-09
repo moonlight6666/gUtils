@@ -3,6 +3,7 @@ package gUtils
 import (
 	"crypto/md5"
 	"crypto/sha1"
+	"crypto/sha256"
 	"encoding/hex"
 	"fmt"
 )
@@ -18,6 +19,12 @@ func Md5String(str string) string {
 
 func SHA1(s string) string {
 	o := sha1.New()
+	o.Write([]byte(s))
+	return hex.EncodeToString(o.Sum(nil))
+}
+
+func SHA256(s string) string {
+	o := sha256.New()
 	o.Write([]byte(s))
 	return hex.EncodeToString(o.Sum(nil))
 }

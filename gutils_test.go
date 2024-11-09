@@ -149,6 +149,11 @@ func TestSHA1(t *testing.T) {
 	assert.Equal(t, s, "ecf9cf8ee545da387d81f3eb897a9a0b40614af0")
 }
 
+func TestSHA256(t *testing.T) {
+	s := SHA256("94ad8936057de9133c1d60dd9e6370de")
+	assert.Equal(t, s, "a23c3c3a205df858e96717b7db57a1524e639ea702ed00221aecfb62721558cb")
+}
+
 type testStruct struct {
 	Name  string `json:"name"`
 	Age   int    `json:"age"`
