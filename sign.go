@@ -12,7 +12,7 @@ import (
 // 生成签名源串(表单)
 // return=> age=1&name=x
 func MakeSignSourceForm(in interface{}, tagName string) (string, error) {
-	return MakeSignSource(in, tagName, true, '=', '&')
+	return MakeSignSource(in, tagName, '=', '&')
 }
 
 // 生成签名源串
@@ -20,7 +20,7 @@ func MakeSignSourceForm(in interface{}, tagName string) (string, error) {
 // kvSeg: kv分割符
 // seg: 参数分割符
 // return： k{{kvSeg}}v{{seg}}k1{{kvSeg}}v1
-func MakeSignSource(in interface{}, tagName string, isShowKey bool, kvSeg byte, seg byte) (string, error) {
+func MakeSignSource(in interface{}, tagName string, kvSeg byte, seg byte) (string, error) {
 	m, err := StructToMapReflect(in, tagName)
 	if err != nil {
 		return "", err
@@ -36,10 +36,10 @@ func MakeSignSource(in interface{}, tagName string, isShowKey bool, kvSeg byte, 
 
 	var buf = bytes.Buffer{}
 	for _, k := range keys {
-		if buf.Len() > 0 {
+		if buf.Len() > 0 && seg != ' ' {
 			buf.WriteByte(seg)
 		}
-		if isShowKey {
+		if kvSeg != ' ' {
 			buf.WriteString(k)
 			buf.WriteByte(kvSeg)
 		}

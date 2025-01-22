@@ -172,15 +172,15 @@ func TestMakeSignSource(t *testing.T) {
 		Level: 10,
 		From:  "china",
 	}
-	source, err := MakeSignSource(v, "json", false, ' ', '#')
+	source, err := MakeSignSource(v, "json", ' ', '#')
 	assert.Equal(t, err, nil)
 	assert.Equal(t, source, "99#china#10#xiaoming")
 
-	source, err = MakeSignSource(v, "json", true, '=', '#')
+	source, err = MakeSignSource(v, "json", '=', '#')
 	assert.Equal(t, err, nil)
 	assert.Equal(t, source, "age=99#from=china#level=10#name=xiaoming")
 
-	source, err = MakeSignSource(v, "json", true, '=', '&')
+	source, err = MakeSignSource(v, "json", '=', '&')
 	assert.Equal(t, err, nil)
 	assert.Equal(t, source, "age=99&from=china&level=10&name=xiaoming")
 }
