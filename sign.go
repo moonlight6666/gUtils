@@ -55,6 +55,7 @@ func MakeSignSource(in interface{}, tagName string, kvSeg byte, seg byte) (strin
 }
 
 const omitempty = "omitempty"
+const omit = "omit"
 
 func StructToMapReflect(in interface{}, tagName string) (map[string]interface{}, error) {
 	out := make(map[string]interface{})
@@ -75,6 +76,7 @@ func StructToMapReflect(in interface{}, tagName string) (map[string]interface{},
 		fi := t.Field(i)
 		if tagValue := fi.Tag.Get(tagName); tagValue != "" {
 			isOmitempty := false
+			isOmit := false
 			if strings.Contains(tagValue, ",") {
 				for _, subTagValue := range strings.Split(tagValue, ",") {
 					if subTagValue != omitempty {
@@ -82,10 +84,12 @@ func StructToMapReflect(in interface{}, tagName string) (map[string]interface{},
 					} else if subTagValue == omitempty {
 						isOmitempty = true
 					}
+					if subTagValue == omit {
+						isOmit = true
+					}
 				}
 			}
-			isOmit := false
-			if isOmitempty {
+			if isOmitempty && isOmit == false {
 				switch v.Field(i).Kind() {
 				case reflect.String:
 					isOmit = v.Field(i).String() == ""
