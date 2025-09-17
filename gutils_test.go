@@ -246,3 +246,11 @@ func TestReverse(t *testing.T) {
 
 	assert.Equal(t, Reverse([]string{"a", "c"}), []string{"c", "a"})
 }
+
+func TestCamel2Case(t *testing.T) {
+	assert.Equal(t, Camel2Case("XiaoMing"), "xiao_ming")
+	assert.Equal(t, Camel2Case("xiao_ming"), "xiao_ming")
+	assert.Equal(t, Camel2Case("Xiao"), "xiao")
+	assert.Equal(t, Camel2Case(""), "")
+	assert.Equal(t, Camel2Case("A"), "a")
+}

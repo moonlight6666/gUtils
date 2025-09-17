@@ -17,7 +17,7 @@ func MakeSignSourceForm(in interface{}, tagName string) (string, error) {
 
 // 生成签名源串
 // isShowKey：是否显示key
-// kvSeg: kv分割符
+// kvSeg: kv分割符,如果等于' ',则不显示k
 // seg: 参数分割符
 // return： k{{kvSeg}}v{{seg}}k1{{kvSeg}}v1
 func MakeSignSource(in interface{}, tagName string, kvSeg byte, seg byte) (string, error) {
