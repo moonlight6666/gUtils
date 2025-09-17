@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"log"
 	"sync"
-	"time"
 )
 
 type monitorCostTime struct {
@@ -30,7 +29,7 @@ func NewMonitorCostTime(name string) *monitorCostTime {
 
 func (s *monitorCostTime) Start() {
 	log.Printf("执行 [%s] 开始\n", s.functionName)
-	s.startTime = time.Now().UnixNano() / 1000000
+	s.startTime = NowMs()
 }
 
 func (s *monitorCostTime) Stop() {
@@ -38,7 +37,7 @@ func (s *monitorCostTime) Stop() {
 }
 
 func (s *monitorCostTime) UseTime() int64 {
-	s.endTime = time.Now().UnixNano() / 1000000
+	s.endTime = NowMs()
 	useTime := s.endTime - s.startTime
 	return useTime
 }
