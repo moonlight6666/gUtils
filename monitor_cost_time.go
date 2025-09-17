@@ -29,7 +29,7 @@ func NewMonitorCostTime(name string) *monitorCostTime {
 
 func (s *monitorCostTime) Start() {
 	log.Printf("执行 [%s] 开始\n", s.functionName)
-	s.startTime = NowMs()
+	s.startTime = MilliTimestamp()
 }
 
 func (s *monitorCostTime) Stop() {
@@ -37,7 +37,7 @@ func (s *monitorCostTime) Stop() {
 }
 
 func (s *monitorCostTime) UseTime() int64 {
-	s.endTime = NowMs()
+	s.endTime = MilliTimestamp()
 	useTime := s.endTime - s.startTime
 	return useTime
 }

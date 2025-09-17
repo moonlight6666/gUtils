@@ -134,6 +134,7 @@ func CSTLayoutStringToUnix(cstLayoutString string) (int64, error) {
 	return stamp.Unix(), nil
 }
 
-func NowMs() int64 {
+// 毫秒时间戳
+func MilliTimestamp() int64 {
 	return time.Now().UnixNano() / 1000000
 }
