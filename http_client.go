@@ -25,14 +25,21 @@ func NewHttpClient(timeout time.Duration) *HttpClient {
 		},
 	}
 }
+func (h *HttpClient) GetWithStruct(u string, data any) (rs []byte, err error) {
+	form, err := StructToForm(data, "form")
+	if err != nil {
+		return nil, err
+	}
+	return h.Get(u, form)
+}
 
-func (h *HttpClient) Get(u string, data string) (rs []byte, err error) {
+func (h *HttpClient) Get(u string, form string) (rs []byte, err error) {
 	var Url *url.URL
 	Url, err = url.Parse(u)
 	if err != nil {
 		return nil, err
 	}
-	Url.RawQuery = data
+	Url.RawQuery = form
 
 	resp, err := h.client.Get(Url.String())
 	if err != nil {
@@ -58,12 +65,20 @@ func (h *HttpClient) Post(url string, contentType string, data string) ([]byte, 
 	return io.ReadAll(resp.Body)
 }
 
-func (h *HttpClient) PostForm(url string, data string) ([]byte, error) {
-	return h.Post(url, "application/x-www-form-urlencoded", data)
+func (h *HttpClient) PostForm(url string, form string) ([]byte, error) {
+	return h.Post(url, "application/x-www-form-urlencoded", form)
 }
 
 func (h *HttpClient) PosJson(url string, data string) ([]byte, error) {
 	return h.Post(url, "application/json", data)
+}
+
+func (h *HttpClient) PosFormWithStruct(url string, data any) ([]byte, error) {
+	form, err := StructToForm(data, "form")
+	if err != nil {
+		return nil, err
+	}
+	return h.PostForm(url, form)
 }
 
 func (h *HttpClient) PosJsonWithStruct(url string, data any) ([]byte, error) {
