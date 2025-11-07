@@ -6,6 +6,7 @@ import (
 	"os"
 	"os/exec"
 	"runtime"
+	"sync"
 )
 
 func CheckErrorExit(err error, msg ...string) {
@@ -76,5 +77,19 @@ func IfThen[T any](condition bool, true T, false T) T {
 	if condition {
 		return true
 	}
+	return false
+}
+
+var isAlreadyActionMap sync.Map
+
+// 是否已经执行
+func IsAlreadyAction(action string) bool {
+	if isAlready, ok := isAlreadyActionMap.Load(action); ok {
+		// 锁判断
+		if isAlready.(bool) == true {
+			return true
+		}
+	}
+	isAlreadyActionMap.Store(action, true)
 	return false
 }
