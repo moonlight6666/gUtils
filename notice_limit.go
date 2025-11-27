@@ -40,13 +40,14 @@ func NewDefaultNoticeLimit() *noticeLimit {
 	})
 }
 
-func (nl *noticeLimit) IsNotice(notice string) bool {
+func (nl *noticeLimit) IsNoticeWithLastTime(notice string) (bool, int) {
 	times := 1
 	now := GetTimestamp()
+	lastTime := 0
 	if v, ok := nl.Load(notice); ok {
 		e := v.(noticeLimitData)
 		times = e.Times + 1
-		lastTime := e.LastTime
+		lastTime = e.LastTime
 
 		limitSecond := 0
 		for _, v := range nl.config {
@@ -56,11 +57,16 @@ func (nl *noticeLimit) IsNotice(notice string) bool {
 		}
 		fmt.Println("limitTime:", times, limitSecond, lastTime)
 		if now <= lastTime+limitSecond {
-			return false
+			return false, lastTime
 		}
 	}
 	nl.updateData(notice, times, now)
-	return true
+	return true, lastTime
+}
+
+func (nl *noticeLimit) IsNotice(notice string) bool {
+	b, _ := nl.IsNoticeWithLastTime(notice)
+	return b
 }
 
 func (nl *noticeLimit) Reset(notice string) {
