@@ -11,6 +11,12 @@ func MakeSignSourceForm(in interface{}, tagName string) (string, error) {
 	return MakeSignSource(in, tagName, '=', '&')
 }
 
+// 生成签名源串(value拼接)
+// return=> 1&x
+func MakeSignSourceValue(in interface{}, tagName string, seg byte) (string, error) {
+	return MakeSignSource(in, tagName, ' ', seg)
+}
+
 // 生成签名源串
 // isShowKey：是否显示key
 // kvSeg: kv分割符,如果等于' ',则不显示k
