@@ -2,6 +2,7 @@ package gUtils
 
 import (
 	"bytes"
+	"encoding/json"
 	"errors"
 	"fmt"
 	"math"
@@ -106,6 +107,9 @@ func toString(v interface{}) (string, error) {
 		return fmt.Sprintf("%f", vv), nil
 	case float64:
 		return fmt.Sprintf("%f", vv), nil
+	case []string, []int, struct{}:
+		b, err := json.Marshal(vv)
+		return string(b), err
 	default:
 		return "", fmt.Errorf("unknow type to string:%v %v", v, vv)
 	}

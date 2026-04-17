@@ -165,6 +165,11 @@ type testStruct struct {
 	From  string `json:"from,omitempty"`
 }
 
+type testStruct2 struct {
+	Name  string   `json:"name"`
+	Items []string `json:"items"`
+}
+
 func TestMakeSignSource(t *testing.T) {
 	v := testStruct{
 		Name:  "xiaoming",
@@ -195,6 +200,16 @@ func TestMakeSignSourceForm(t *testing.T) {
 	source, err := MakeSignSourceForm(v, "json")
 	assert.Equal(t, err, nil)
 	assert.Equal(t, source, "age=99&from=china&level=10&name=xiaoming")
+}
+
+func TestMakeSignSource2(t *testing.T) {
+	v := testStruct2{
+		Name:  "xiaoming",
+		Items: []string{"a", "b"},
+	}
+	source, err := MakeSignSourceForm(v, "json")
+	assert.Equal(t, err, nil)
+	assert.Equal(t, source, "items=[\"a\",\"b\"]&name=xiaoming")
 }
 
 func TestUniq(t *testing.T) {
