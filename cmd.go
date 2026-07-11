@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"io"
 	"log"
+	"os"
 	"os/exec"
 	"strings"
 )
@@ -27,10 +28,19 @@ func Cmd(commandName string, params []string) (string, error) {
 	//err = cmd.Wait()
 	//return out.String(), err
 }
-
 func CmdAndChangeDir(dir string, commandName string, params []string) (string, error) {
+	return CmdAndChangeDir(dir, commandName, params)
+}
+
+func CmdAndChangeDirWithEnv(dir string, commandName string, params []string, env string) (string, error) {
 	cmd := exec.Command(commandName, params...)
 	log.Println("CmdAndChangeDir", dir, cmd.Args)
+	if env != "" {
+		cmd.Env = append(os.Environ(),
+			env,
+			//"PATH=/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin",
+		)
+	}
 	var out bytes.Buffer
 	cmd.Stdout = &out
 	cmd.Stderr = cmd.Stdout

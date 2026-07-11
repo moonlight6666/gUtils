@@ -7,6 +7,9 @@ import (
 	"crypto/sha256"
 	"encoding/hex"
 	"fmt"
+	"github.com/cespare/xxhash/v2"
+	"io"
+	"os"
 )
 
 func Md5(s []byte) string {
@@ -35,4 +38,35 @@ func HMAC_SHA256(s string, k string) string {
 	h.Write([]byte(s))
 	digest := h.Sum(nil)
 	return hex.EncodeToString(digest)
+}
+
+func Md5File(filePath string) (string, error) {
+	file, err := os.Open(filePath)
+	if err != nil {
+		return "", err
+	}
+	defer file.Close()
+
+	hash := md5.New()
+	if _, err := io.Copy(hash, file); err != nil {
+		return "", err
+	}
+
+	return hex.EncodeToString(hash.Sum(nil)), nil
+}
+
+func XXhashFile(filePath string) (string, error) {
+	file, err := os.Open(filePath)
+	if err != nil {
+		return "", err
+	}
+	defer file.Close()
+
+	// 流式哈希，大文件无压力
+	hash := xxhash.New()
+	if _, err := io.Copy(hash, file); err != nil {
+		return "", err
+	}
+
+	return fmt.Sprintf("%d", hash.Sum64()), nil
 }
