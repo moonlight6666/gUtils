@@ -29,7 +29,7 @@ func Cmd(commandName string, params []string) (string, error) {
 	//return out.String(), err
 }
 func CmdAndChangeDir(dir string, commandName string, params []string) (string, error) {
-	return CmdAndChangeDir(dir, commandName, params)
+	return CmdAndChangeDirWithEnv(dir, commandName, params, "")
 }
 
 func CmdAndChangeDirWithEnv(dir string, commandName string, params []string, env string) (string, error) {
