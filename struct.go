@@ -158,3 +158,21 @@ func isEmpty(v reflect.Value) bool {
 	}
 	return false
 }
+
+func IsEmpty(v any) bool {
+	if v == nil {
+		return true
+	}
+
+	rv := reflect.ValueOf(v)
+
+	// 支持传入 *Struct
+	if rv.Kind() == reflect.Ptr {
+		if rv.IsNil() {
+			return true
+		}
+		rv = rv.Elem()
+	}
+
+	return rv.IsZero()
+}

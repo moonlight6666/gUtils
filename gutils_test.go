@@ -269,3 +269,24 @@ func TestCamel2Case(t *testing.T) {
 	assert.Equal(t, Camel2Case(""), "")
 	assert.Equal(t, Camel2Case("A"), "a")
 }
+
+func TestIsEmptyStruct(t *testing.T) {
+	type test struct {
+		Name string
+		Age  int
+	}
+	assert.Equal(t, IsEmpty("XiaoMing"), false)
+	assert.Equal(t, IsEmpty(""), true)
+	assert.Equal(t, IsEmpty(0), true)
+	assert.Equal(t, IsEmpty(nil), true)
+	assert.Equal(t, IsEmpty(test{}), true)
+	assert.Equal(t, IsEmpty(&test{}), true)
+	assert.Equal(t, IsEmpty(test{Age: 0}), true)
+	assert.Equal(t, IsEmpty(&test{Age: 0}), true)
+	assert.Equal(t, IsEmpty(test{Name: ""}), true)
+	assert.Equal(t, IsEmpty(&test{Name: ""}), true)
+	assert.Equal(t, IsEmpty(test{Age: 1}), false)
+	assert.Equal(t, IsEmpty(&test{Age: 1}), false)
+	assert.Equal(t, IsEmpty(test{Name: "1"}), false)
+	assert.Equal(t, IsEmpty(&test{Name: "1"}), false)
+}
